@@ -15,9 +15,9 @@ jobs:
         run: |
           expectedMessage='thanks for opening your first'
           if [[ "$COMMENT" == *"$expectedMessage"* ]]; then
-            echo "::set-output isNewContributor::true"
+            echo "::set-output name=isNewContributor::true"
           else
-            echo "::set-output isNewContributor::false"
+            echo "::set-output name=isNewContributor::false"
           fi
       - name: Send slack message
         if: steps.checkNewContributor.isNewContributor == 'true'
