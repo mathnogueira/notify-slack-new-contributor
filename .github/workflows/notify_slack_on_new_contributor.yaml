@@ -13,6 +13,7 @@ jobs:
       - name: Is new-contributor welcome bot?
         id: checkNewContributor
         run: |
+          echo $AUTHOR
           expectedMessage='thanks for opening your first'
           if [[ "$COMMENT" == *"$expectedMessage"* ]]; then
             echo "::set-output name=isNewContributor::true"
@@ -20,12 +21,8 @@ jobs:
             echo "::set-output name=isNewContributor::false"
           fi
         env:
+          AUTHOR: ${{ github.event.comment.user.login }}
           COMMENT: ${{ github.event.comment.body }}
-      - name: debug output
-        run: |
-          echo $OUTPUT
-        env:
-          OUTPUT: ${{ steps.checkNewContributor.outputs.isNewContributor }}
       - name: Send slack message
         if: steps.checkNewContributor.outputs.isNewContributor == 'true'
         run: |
