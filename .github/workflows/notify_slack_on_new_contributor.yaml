@@ -27,6 +27,6 @@ jobs:
         env:
           OUTPUT: ${{ steps.checkNewContributor.outputs.isNewContributor }}
       - name: Send slack message
-        if: steps.checkNewContributor.outputs.isNewContributor == true
+        if: steps.checkNewContributor.outputs.isNewContributor == 'true'
         run: |
           echo "This is from a new contributor"
