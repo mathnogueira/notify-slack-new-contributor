@@ -15,9 +15,9 @@ jobs:
         run: |
           expectedMessage='thanks for opening your first'
           if [[ "$COMMENT" == *"$expectedMessage"* ]]; then
-            echo "::set-output name=isNewContributor::'true'"
+            echo "::set-output name=isNewContributor::true"
           else
-            echo "::set-output name=isNewContributor::'false'"
+            echo "::set-output name=isNewContributor::false"
           fi
         env:
           COMMENT: ${{ github.event.comment.body }}
@@ -27,6 +27,6 @@ jobs:
         env:
           OUTPUT: ${{ steps.checkNewContributor.outputs.isNewContributor }}
       - name: Send slack message
-        if: steps.checkNewContributor.outputs.isNewContributor == 'true'
+        if: steps.checkNewContributor.outputs.isNewContributor == true
         run: |
           echo "This is from a new contributor"
