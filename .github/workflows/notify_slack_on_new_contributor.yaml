@@ -21,6 +21,11 @@ jobs:
           fi
         env:
           COMMENT: ${{ github.event.comment.body }}
+      - name: debug output
+        run: |
+          echo $OUTPUT
+        env:
+          OUTPUT: ${{ steps.checkNewContributor.isNewContributor }}
       - name: Send slack message
         if: steps.checkNewContributor.isNewContributor == 'true'
         run: |
